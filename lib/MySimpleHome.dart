@@ -1,45 +1,33 @@
 import 'package:flutter/material.dart';
+import 'product_manager.dart';
 
 class MySimpleHome extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _MyAppState();
+    return _MySimpleHomeState();
   }
 }
 
-class _MyAppState extends State<MySimpleHome> {
-  List<String> _products = ['Food Tester'];
+class _MySimpleHomeState extends State<MySimpleHome> {
+  Color _theme;
+  initState() {
+    _theme = ThemeData.dark().scaffoldBackgroundColor;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("teste"),
-        backgroundColor: Colors.black,
+        title: Text("List Food"),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Column(
+      body: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(20.0),
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(10.0),
-            child: RaisedButton(
-              onPressed: () {
-                _products.add("Food Tester 2");
-              },
-              child: Text("Add product"),
-            ),
-          ),
-          Column(
-            children: _products
-                .map((el) => Card(
-                      child: Column(
-                        children: <Widget>[
-                          Image.asset('assets/paradise.jpeg'),
-                          Text(el.toString())
-                        ],
-                      ),
-                    ))
-                .toList(),
-          ),
+          ProductManager(startingProduct: 'Initial Food'),
         ],
       ),
     );
